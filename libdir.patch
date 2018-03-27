@@ -1,0 +1,37 @@
+diff -dur Cadence-0.8.1.orig/src/shared_cadence.py Cadence-0.8.1/src/shared_cadence.py
+--- Cadence-0.8.1.orig/src/shared_cadence.py	2013-07-16 06:36:57.000000000 +0200
++++ Cadence-0.8.1/src/shared_cadence.py	2018-03-27 15:19:12.000000000 +0200
+@@ -30,27 +30,29 @@
+ # ------------------------------------------------------------------------------------------------------------
+ # Default Plugin PATHs
+ 
++LIBDIR = "/usr/lib"
++
+ DEFAULT_LADSPA_PATH = [
+     os.path.join(HOME, ".ladspa"),
+-    os.path.join("/", "usr", "lib", "ladspa"),
++    os.path.join(LIBDIR, "ladspa"),
+     os.path.join("/", "usr", "local", "lib", "ladspa")
+ ]
+ 
+ DEFAULT_DSSI_PATH = [
+     os.path.join(HOME, ".dssi"),
+-    os.path.join("/", "usr", "lib", "dssi"),
++    os.path.join(LIBDIR, "dssi"),
+     os.path.join("/", "usr", "local", "lib", "dssi")
+ ]
+ 
+ DEFAULT_LV2_PATH = [
+     os.path.join(HOME, ".lv2"),
+-    os.path.join("/", "usr", "lib", "lv2"),
++    os.path.join(LIBDIR, "lv2"),
+     os.path.join("/", "usr", "local", "lib", "lv2")
+ ]
+ 
+ DEFAULT_VST_PATH = [
+     os.path.join(HOME, ".vst"),
+-    os.path.join("/", "usr", "lib", "vst"),
++    os.path.join(LIBDIR, "vst"),
+     os.path.join("/", "usr", "local", "lib", "vst")
+ ]
+ 
