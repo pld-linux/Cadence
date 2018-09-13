@@ -1,20 +1,20 @@
 Summary:	Set of tools useful for audio production
 Name:		Cadence
-Version:	0.8.1
+Version:	0.9.0
 Release:	1
 License:	GPL v2+
 Group:		Applications
-Source0:	https://downloads.sourceforge.net/kxstudio/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	435ba32b2afe84aa994e73079ac2bb63
+Source0:	https://github.com/falkTX/Cadence/archive/v0.9.0/%{name}-%{version}.tar.gz
+# Source0-md5:	3031db18be95c62a758c2793498549a7
 Patch0:		libdir.patch
 URL:		http://kxstudio.linuxaudio.org/Applications:Cadence
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:	python-PyQt4-devel-tools
-BuildRequires:	python3-PyQt4
-BuildRequires:	python3-PyQt4-uic
-BuildRequires:	qt4-build
+BuildRequires:	python-PyQt5-devel-tools
+BuildRequires:	python3-PyQt5
+BuildRequires:	python3-PyQt5-uic
+BuildRequires:	qt5-build
 BuildRequires:	rpm-pythonprov
-Requires:	python3-PyQt4
+Requires:	python3-PyQt5
 Requires:	python3-dbus
 Suggests:	a2jmidid
 Suggests:	jack-capture
@@ -60,7 +60,8 @@ sed -i -e 's@^LIBDIR = .*@LIBDIR = "%{_libdir}"@' src/shared_cadence.py
 
 %build
 %{__make} \
-	PYUIC=pyuic4-3 \
+	PYUIC=pyuic5-3 \
+	PYRCC=pyrcc5 \
 	PREFIX="%{_prefix}"
 
 %install
@@ -88,6 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cadence-jacksettings
 %attr(755,root,root) %{_bindir}/cadence-logs
 %attr(755,root,root) %{_bindir}/cadence-pulse2jack
+%attr(755,root,root) %{_bindir}/cadence-pulse2loopback
 %attr(755,root,root) %{_bindir}/cadence-render
 %attr(755,root,root) %{_bindir}/cadence-session-start
 %attr(755,root,root) %{_bindir}/cadence-xycontroller
@@ -98,9 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/cadence
 %{_iconsdir}/hicolor/*/apps/*
 %{_desktopdir}/cadence.desktop
-%{_desktopdir}/cadence-gnome-settings.desktop
 %{_desktopdir}/catarina.desktop
 %{_desktopdir}/catia.desktop
 %{_desktopdir}/claudia.desktop
 %{_desktopdir}/claudia-launcher.desktop
+/etc/xdg/autostart/cadence-session-start.desktop
 %attr(755,root,root) /etc/X11/xinit/xinitrc.d/*
