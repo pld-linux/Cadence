@@ -1,12 +1,13 @@
 Summary:	Set of tools useful for audio production
 Name:		Cadence
 Version:	0.9.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications
 Source0:	https://github.com/falkTX/Cadence/archive/v0.9.0/%{name}-%{version}.tar.gz
 # Source0-md5:	3031db18be95c62a758c2793498549a7
 Patch0:		libdir.patch
+Patch1:		kernel_check.patch
 URL:		http://kxstudio.linuxaudio.org/Applications:Cadence
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	python-PyQt5-devel-tools
@@ -56,6 +57,7 @@ Cadence is a set of tools useful for audio production.
 %setup -q
 
 %patch0 -p1
+%patch1 -p1
 sed -i -e 's@^LIBDIR = .*@LIBDIR = "%{_libdir}"@' src/shared_cadence.py
 
 %build

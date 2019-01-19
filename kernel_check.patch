@@ -1,0 +1,44 @@
+diff -dur -x '*~' Cadence-0.9.0.orig/src/cadence.py Cadence-0.9.0/src/cadence.py
+--- Cadence-0.9.0.orig/src/cadence.py	2018-03-22 00:58:48.000000000 +0100
++++ Cadence-0.9.0/src/cadence.py	2019-01-19 19:51:19.151840612 +0100
+@@ -28,6 +28,8 @@
+     from PyQt4.QtCore import QFileSystemWatcher, QThread, QSemaphore
+     from PyQt4.QtGui import QApplication, QDialogButtonBox, QLabel, QMainWindow, QSizePolicy
+ 
++import re
++
+ # ------------------------------------------------------------------------------------------------------------
+ # Imports (Custom Stuff)
+ 
+@@ -475,7 +477,9 @@
+ 
+         self.name = self.tr("Current kernel")
+ 
+-        uname3 = os.uname()[2]
++        uname3, uname4 = os.uname()[2:4]
++
++        uname4_match = re.match(r"^\#\d+ ((?:[A-Z]{2,} )*)[A-Z][a-z]", uname4)
+ 
+         versionInt   = []
+         versionStr   = uname3.split("-",1)[0]
+@@ -490,7 +494,19 @@
+ 
+         self.result = versionStr + " "
+ 
+-        if "-" not in uname3:
++        if uname4_match:
++            kernelType    = uname4_match.group(1)
++            self.result  += kernelType
++            if "PREEMPT RT" in kernelType:
++                self.icon     = self.ICON_OK
++                self.moreInfo = None
++            elif "PREEMPT" in kernelType:
++                self.icon     = self.ICON_WARN
++                self.moreInfo = None
++            else:
++                self.icon     = self.ICON_ERROR
++                self.moreInfo = None
++        elif "-" not in uname3:
+             self.icon     = self.ICON_WARN
+             self.result  += self.tr("Vanilla")
+             self.moreInfo = None
