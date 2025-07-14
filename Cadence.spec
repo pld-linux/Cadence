@@ -56,8 +56,8 @@ Cadence is a set of tools useful for audio production.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 sed -i -e 's@^LIBDIR = .*@LIBDIR = "%{_libdir}"@' src/shared_cadence.py
 
 %build
