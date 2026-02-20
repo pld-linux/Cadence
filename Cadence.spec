@@ -1,7 +1,7 @@
 Summary:	Set of tools useful for audio production
 Name:		Cadence
 Version:	0.9.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications
 Source0:	https://github.com/falkTX/Cadence/archive/v0.9.0/%{name}-%{version}.tar.gz
