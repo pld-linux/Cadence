@@ -1,16 +1,16 @@
 Summary:	Set of tools useful for audio production
 Name:		Cadence
-Version:	0.9.0
-Release:	3
+Version:	0.9.2
+Release:	1
 License:	GPL v2+
 Group:		Applications
-Source0:	https://github.com/falkTX/Cadence/archive/v0.9.0/%{name}-%{version}.tar.gz
-# Source0-md5:	3031db18be95c62a758c2793498549a7
+Source0:	https://github.com/falkTX/Cadence/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	b4eccb662c59f89022f67ffb32383ab3
 Patch0:		libdir.patch
 Patch1:		kernel_check.patch
 URL:		http://kxstudio.linuxaudio.org/Applications:Cadence
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:	python-PyQt5-devel-tools
+BuildRequires:	python3-PyQt5-devel-tools
 BuildRequires:	python3-PyQt5
 BuildRequires:	python3-PyQt5-uic
 BuildRequires:	qt5-build
@@ -62,9 +62,13 @@ sed -i -e 's@^LIBDIR = .*@LIBDIR = "%{_libdir}"@' src/shared_cadence.py
 
 %build
 %{__make} \
-	PYUIC=pyuic5-3 \
+	PYUIC=pyuic5 \
 	PYRCC=pyrcc5 \
-	PREFIX="%{_prefix}"
+	PREFIX="%{_prefix}" \
+	SKIP_STRIPPING=true \
+	CFLAGS="%{rpmcflags}" \
+	CXXFLAGS="%{rpmcxxflags}" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
